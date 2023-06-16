@@ -1,41 +1,101 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/component/place/place.dart';
+import 'package:new_app/component/test_pages/testcountdown2.dart';
+import 'package:new_app/pages/navigatorBar.dart';
+import 'package:new_app/widgets/place_img_widgets/rating-widget.dart';
+import 'component/article/card-article-widget.dart';
+import 'component/test_pages/test.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const BottomSheetApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
+class BottomSheetApp extends StatelessWidget {
+  const BottomSheetApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Modal')),
+        body: const BottomSheetExample(),
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class BottomSheetExample extends StatelessWidget {
+  const BottomSheetExample({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
+    return Center(
+      child: Column(
+        children: [
+          ElevatedButton(
+            child: const Text('User Login'),
+            onPressed: () {
+              showModalBottomSheet<void>(
+                context: context,
+                isScrollControlled: true,
+                constraints: BoxConstraints.tight(Size(
+                    MediaQuery.of(context).size.width,
+                    MediaQuery.of(context).size.height * .7)),
+                builder: (BuildContext context) {
+                  return const Scaffold(
+                    body: Center(
+                      child: BottomNavigationBarExample(),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Article'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CardArticle()),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Place'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Place()),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Star Example'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: const Text('test'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CountDown()),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: const Text('test'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp2()),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
